@@ -1,0 +1,15 @@
+footer{}
+footer .grass{
+	width: 100%;
+	height: 100px;
+	background-color: #FFF;
+	background: url('http://project.mattspencer.info/images/grass_web2.png');
+	background-repeat: repeat-x;
+	position: absolute;
+}
+footer .main{
+	position: relative;
+	top: 100px;
+	background: #000;
+	color: #FFF;
+}
