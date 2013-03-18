@@ -11,78 +11,78 @@ footer {
 /* Large desktop */
 @media (min-width: 1200px) {footer { background: 
         /*-Moose-*/
-        url("/images/moose.png") no-repeat 19% 50%,
+        url("/img/footer/moose.png") no-repeat 19% 50%,
         /*-Grass-*/
-        url("/images/grass.png")repeat-x 0 82%,
-        url("/images/grass2.png")repeat-x 2% 83%,
-        url("/images/grass_extend.png")  repeat-x 0 100%,
+        url("/img/footer/grass.png")repeat-x 0 82%,
+        url("/img/footer/grass2.png")repeat-x 2% 83%,
+        url("/img/footer/grass_extend.png")  repeat-x 0 100%,
         /*-Pines 1-*/
-        url("/images/pine1.png")no-repeat 5% 22%,
-        url("/images/pine1.png")no-repeat 95% 23%,
+        url("/img/footer/pine1.png")no-repeat 5% 22%,
+        url("/img/footer/pine1.png")no-repeat 95% 23%,
         /*-Pines 2-*/
-        url("/images/pine2.png")no-repeat -4% 100%,
-        url("/images/pine2.png")no-repeat 12% 50%,
-        url("/images/pine2.png")no-repeat 84% 57%,
-        url("/images/pine2.png")no-repeat 102% 86%,
+        url("/img/footer/pine2.png")no-repeat -4% 100%,
+        url("/img/footer/pine2.png")no-repeat 12% 50%,
+        url("/img/footer/pine2.png")no-repeat 84% 57%,
+        url("/img/footer/pine2.png")no-repeat 102% 86%,
         /*-Background Pines-*/
-        url("/images/background_pines.png")  repeat-x 20% 50%,
-        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+        url("/img/footer/background_pines.png")  repeat-x 20% 50%,
+        url("/img/footer/bg_pines_extend.png")  repeat-x 0 85%;
 } }
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) {footer { background: 
         /*-Moose-*/
-        url("/images/moose.png") no-repeat 19% 50%,
+        url("/img/footer/moose.png") no-repeat 19% 50%,
         /*-Grass-*/
-        url("/images/grass.png")repeat-x 0 82%,
-        url("/images/grass2.png")repeat-x 2% 83%,
-        url("/images/grass_extend.png")  repeat-x 0 100%,
+        url("/img/footer/grass.png")repeat-x 0 82%,
+        url("/img/footer/grass2.png")repeat-x 2% 83%,
+        url("/img/footer/grass_extend.png")  repeat-x 0 100%,
         /*-Pines 1-*/
-        url("/images/pine1.png")no-repeat 5% 22%,
-        url("/images/pine1.png")no-repeat 95% 23%,
+        url("/img/footer/pine1.png")no-repeat 5% 22%,
+        url("/img/footer/pine1.png")no-repeat 95% 23%,
         /*-Pines 2-*/
-        url("/images/pine2.png")no-repeat -4% 100%,
-        url("/images/pine2.png")no-repeat 12% 50%,
-        url("/images/pine2.png")no-repeat 84% 57%,
-        url("/images/pine2.png")no-repeat 102% 86%,
+        url("/img/footer/pine2.png")no-repeat -4% 100%,
+        url("/img/footer/pine2.png")no-repeat 12% 50%,
+        url("/img/footer/pine2.png")no-repeat 84% 57%,
+        url("/img/footer/pine2.png")no-repeat 102% 86%,
         /*-Background Pines-*/
-        url("/images/background_pines.png")  repeat-x 20% 50%,
-        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+        url("/img/footer/background_pines.png")  repeat-x 20% 50%,
+        url("/img/footer/bg_pines_extend.png")  repeat-x 0 85%;
 } }
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {footer { background: 
         /*-Moose-*/
-        url("/images/moose.png") no-repeat 19% 50%,
+        url("/img/footer/moose.png") no-repeat 19% 50%,
         /*-Grass-*/
-        url("/images/grass.png")repeat-x 0 82%,
-        url("/images/grass2.png")repeat-x 2% 83%,
-        url("/images/grass_extend.png")  repeat-x 0 100%,
+        url("/img/footer/grass.png")repeat-x 0 82%,
+        url("/img/footer/grass2.png")repeat-x 2% 83%,
+        url("/img/footer/grass_extend.png")  repeat-x 0 100%,
         /*-Pines 1-*/
-        url("/images/pine1.png")no-repeat 5% 22%,
-        url("/images/pine1.png")no-repeat 95% 23%,
+        url("/img/footer/pine1.png")no-repeat 5% 22%,
+        url("/img/footer/pine1.png")no-repeat 95% 23%,
         /*-Pines 2-*/
-        url("/images/pine2.png")no-repeat 17% 50%,
-        url("/images/pine2.png")no-repeat 76% 57%,
-        url("/images/pine2.png")no-repeat 110% 86%,
+        url("/img/footer/pine2.png")no-repeat 17% 50%,
+        url("/img/footer/pine2.png")no-repeat 76% 57%,
+        url("/img/footer/pine2.png")no-repeat 110% 86%,
         /*-Background Pines-*/
-        url("/images/background_pines.png")  repeat-x 20% 50%,
-        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+        url("/img/footer/background_pines.png")  repeat-x 20% 50%,
+        url("/img/footer/bg_pines_extend.png")  repeat-x 0 85%;
 } }
 /* Landscape phones and down */
 @media (max-width: 480px) {footer { 
                                background-size: cover;
                                background: 
         /*-Moose-*/
-        url("/images/moose.png") no-repeat 19% 50%,
+        url("/img/footer/moose.png") no-repeat 19% 50%,
         /*-Grass-*/
-        url("/images/grass.png")repeat-x 0 82%,
-        url("/images/grass2.png")repeat-x 2% 83%,
-        url("/images/grass_extend.png")  repeat-x 0 100%,
+        url("/img/footer/grass.png")repeat-x 0 82%,
+        url("/img/footer/grass2.png")repeat-x 2% 83%,
+        url("/img/footer/grass_extend.png")  repeat-x 0 100%,
         /*-Pines 1-*/
-        url("/images/pine1.png")no-repeat 1% 22%,
-        url("/images/pine1.png")no-repeat 131% 22%,
+        url("/img/footer/pine1.png")no-repeat 1% 22%,
+        url("/img/footer/pine1.png")no-repeat 131% 22%,
         /*-Pines 2-*/
-        url("/images/pine2.png")no-repeat 110% 53%,
+        url("/img/footer/pine2.png")no-repeat 110% 53%,
         /*-Background Pines-*/
-        url("/images/background_pines.png")  repeat-x 20% 50%,
-        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+        url("/img/footer/background_pines.png")  repeat-x 20% 50%,
+        url("/img/footer/bg_pines_extend.png")  repeat-x 0 85%;
 } }
