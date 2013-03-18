@@ -1,15 +1,88 @@
-footer{}
-footer .grass{
-	width: 100%;
-	height: 100px;
-	background-color: #FFF;
-	background: url('http://project.mattspencer.info/images/grass_web2.png');
-	background-repeat: repeat-x;
-	position: absolute;
+
+/*   =====   Footer   =====   */
+
+footer {
+    position: relative;	
+    height: 300px;
+    text-align: center;
+
 }
-footer .main{
-	position: relative;
-	top: 100px;
-	background: #000;
-	color: #FFF;
-}
+
+/* Large desktop */
+@media (min-width: 1200px) {footer { background: 
+        /*-Moose-*/
+        url("/images/moose.png") no-repeat 19% 50%,
+        /*-Grass-*/
+        url("/images/grass.png")repeat-x 0 82%,
+        url("/images/grass2.png")repeat-x 2% 83%,
+        url("/images/grass_extend.png")  repeat-x 0 100%,
+        /*-Pines 1-*/
+        url("/images/pine1.png")no-repeat 5% 22%,
+        url("/images/pine1.png")no-repeat 95% 23%,
+        /*-Pines 2-*/
+        url("/images/pine2.png")no-repeat -4% 100%,
+        url("/images/pine2.png")no-repeat 12% 50%,
+        url("/images/pine2.png")no-repeat 84% 57%,
+        url("/images/pine2.png")no-repeat 102% 86%,
+        /*-Background Pines-*/
+        url("/images/background_pines.png")  repeat-x 20% 50%,
+        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+} }
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) {footer { background: 
+        /*-Moose-*/
+        url("/images/moose.png") no-repeat 19% 50%,
+        /*-Grass-*/
+        url("/images/grass.png")repeat-x 0 82%,
+        url("/images/grass2.png")repeat-x 2% 83%,
+        url("/images/grass_extend.png")  repeat-x 0 100%,
+        /*-Pines 1-*/
+        url("/images/pine1.png")no-repeat 5% 22%,
+        url("/images/pine1.png")no-repeat 95% 23%,
+        /*-Pines 2-*/
+        url("/images/pine2.png")no-repeat -4% 100%,
+        url("/images/pine2.png")no-repeat 12% 50%,
+        url("/images/pine2.png")no-repeat 84% 57%,
+        url("/images/pine2.png")no-repeat 102% 86%,
+        /*-Background Pines-*/
+        url("/images/background_pines.png")  repeat-x 20% 50%,
+        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+} }
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {footer { background: 
+        /*-Moose-*/
+        url("/images/moose.png") no-repeat 19% 50%,
+        /*-Grass-*/
+        url("/images/grass.png")repeat-x 0 82%,
+        url("/images/grass2.png")repeat-x 2% 83%,
+        url("/images/grass_extend.png")  repeat-x 0 100%,
+        /*-Pines 1-*/
+        url("/images/pine1.png")no-repeat 5% 22%,
+        url("/images/pine1.png")no-repeat 95% 23%,
+        /*-Pines 2-*/
+        url("/images/pine2.png")no-repeat 17% 50%,
+        url("/images/pine2.png")no-repeat 76% 57%,
+        url("/images/pine2.png")no-repeat 110% 86%,
+        /*-Background Pines-*/
+        url("/images/background_pines.png")  repeat-x 20% 50%,
+        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+} }
+/* Landscape phones and down */
+@media (max-width: 480px) {footer { 
+                               background-size: cover;
+                               background: 
+        /*-Moose-*/
+        url("/images/moose.png") no-repeat 19% 50%,
+        /*-Grass-*/
+        url("/images/grass.png")repeat-x 0 82%,
+        url("/images/grass2.png")repeat-x 2% 83%,
+        url("/images/grass_extend.png")  repeat-x 0 100%,
+        /*-Pines 1-*/
+        url("/images/pine1.png")no-repeat 1% 22%,
+        url("/images/pine1.png")no-repeat 131% 22%,
+        /*-Pines 2-*/
+        url("/images/pine2.png")no-repeat 110% 53%,
+        /*-Background Pines-*/
+        url("/images/background_pines.png")  repeat-x 20% 50%,
+        url("/images/bg_pines_extend.png")  repeat-x 0 85%;
+} }
