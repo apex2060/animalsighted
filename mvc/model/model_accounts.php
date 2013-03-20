@@ -65,7 +65,7 @@ function account_create($data){
 	}
 	return $return;
 }
-function account_create($data){
+function account_update($data){
 	global $DB;
 	return $return;
 }
