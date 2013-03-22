@@ -69,6 +69,9 @@ function account_update($data){
 	global $DB;
 	return $return;
 }
+function account_delete($data){
+	
+}
 
 function account_login($data){
 	global $DB;
