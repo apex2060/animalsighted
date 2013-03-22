@@ -70,8 +70,53 @@ function account_update($data){
 	return $return;
 }
 function account_delete($data){
-	
+	 //delete data added
+    global $DB;
+
+    try {
+
+        $DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $DB->beginTransaction();
+
+        $sql = "DELETE from user_list WHERE user_id=?";
+
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+
+        $rowChange = $stmt->rowCount();
+        if ($rowChange == 1) {
+
+            $sql = "DELETE from user_info WHERE user_id=?";
+
+            $stmt = $DB->prepare($sql);
+            $stmt->bindParam(1, $id);
+            $stmt->execute();
+
+            $rowChange = $stmt->rowCount();
+            if ($rowChange == 1) {
+                $DB->commit();
+            } else {
+                $DB->rollBack();
+            }
+        } else {
+            $DB->rollBack();
+        }
+
+        $return['status'] = 'success';
+    } catch (Exception $e) {
+
+        $DB->rollBack();
+
+        $return['status'] = 'error';
+        $return['error']['message'] = $e->getMessage();
+        $return = $return;
+    }
+
+    return $return;
 }
+
+	
 
 function account_login($data){
 	global $DB;
