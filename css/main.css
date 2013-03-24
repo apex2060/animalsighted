@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -74,6 +73,11 @@ hr {
 .btn-primary.disabled,
 .btn-primary[disabled] {
   background-color: #6b492e;
+}
+
+.navbar .btn-navbar { 
+    /* fix from brown to black for the top right navbar Phone/Tablet view button   */
+    border-color: black;
 }
 
 /*   =====   Footer   =====   */
