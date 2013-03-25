@@ -52,7 +52,7 @@
 								<?php drawError('email'); ?>
 							</div>
 						</div>
-						<input type="submit" class="btn" id="submit" name="submit" value="Create Account">
+						<input type="submit" class="btn" id="submit" name="submit" value="Update Account">
 					</form>
 				</div><!--/span-->
 			</div><!--/row-->
