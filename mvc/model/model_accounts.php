@@ -5,133 +5,113 @@ Created By:		Ryan Quinlan
 Created On:		02/13/2013
 Purpose:		To post all site variables which will need to be used throughout
 				the site.
-*******************************************************************************/
-function is_clean($form){
-	$ERROR = array();
-	//clean & validate form
-
-	if(strlen($form['username'])<5 || strlen($form['username'])>15){
-		$ERROR['username']='Your username must be between 5 and 15 chars long.';
-	}
-	if($form['password']!=$form['password2']){
-		$ERROR['password2']='Your passwords must match';
-	}
-	if(strlen($form['password'])<5 || strlen($form['password'])>15){
-		$ERROR['password']='Your password must be between 5 and 15 chars long.';
-	}
-	if(strlen($form['first_name'])<2){
-		$ERROR['first_name']='You need a name!';
-	}
-	if(strlen($form['last_name'])<2){
-		$ERROR['last_name']='You need a last name too!';
-	}
-	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
-		$ERROR['email']='Your email is invalid.';
-	}
-	if(count($ERROR)>0){
-		$_SESSION['ERROR']=$ERROR;
-		return false;
+				*******************************************************************************/
+function account_create($data){
+	$response = is_clean_create($data);
+	if($response['status']!='success'){
+		return $response;
 	}else{
-		return true;
+		global $DB;
+		$ePass=encrypt($data['username'], $data['password']);
+		try{
+			$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$DB->beginTransaction();
+
+			$stmt = $DB->prepare('INSERT INTO user_list (username, password) VALUES (?,?)');
+			$stmt->bindParam(1, $data['username']);
+			$stmt->bindParam(2, $ePass);
+			$stmt->execute();
+			$user_id = $DB->lastInsertId();
+
+			$stmt = $DB->prepare('INSERT INTO user_info (user_id, first_name, last_name, email) VALUES (?,?,?,?)');
+			$stmt->bindParam(1, $user_id);
+			$stmt->bindParam(2, $data['first_name']);
+			$stmt->bindParam(3, $data['last_name']);
+			$stmt->bindParam(4, $data['email']);
+			$stmt->execute();
+
+			$DB->commit();
+			$return['status'] = 'success';
+		}catch (Exception $e) {
+			$DB->rollBack();
+			$return['status'] = 'error';
+			$return['error']['message'] = $e->getMessage();
+			$return = $return;
+		}
+		return $return;
 	}
 }
 
-function account_create($data){
+function account_update($data){
+	$response = is_clean_update($data);
+	if($response['status']!='success'){
+		return $response;
+	}else{
+		global $DB;
+		$ePass=encrypt(user('username'), $data['password']);
+		try{
+			$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$DB->beginTransaction();
+
+			if(count($data['password'])>=5){
+				$sql = "UPDATE user_list SET password=? WHERE user_id=?";
+				$stmt = $DB->prepare($sql);
+				$stmt->execute(array($ePass, user('user_id')));
+			}
+
+			$sql = "UPDATE user_info SET first_name=?, last_name=?, email=? WHERE user_id=?";
+			$stmt = $DB->prepare($sql);
+			$stmt->execute(array($data['first_name'], $data['last_name'], $data['email'], user('user_id')));
+
+			$DB->commit();
+			$return['status'] = 'success';
+		}catch (Exception $e) {
+			$DB->rollBack();
+			$return['status'] = 'error';
+			$return['error']['message'] = $e->getMessage();
+			$return = $return;
+		}
+		return $return;
+	}
+}
+
+function account_delete($data){
+//delete data added
 	global $DB;
-	$ePass=encrypt($data['username'], $data['password']);
-	try{
+
+	try {
 		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$DB->beginTransaction();
 
-		$stmt = $DB->prepare('INSERT INTO user_list (username, password) VALUES (?,?)');
-		$stmt->bindParam(1, $data['username']);
-		$stmt->bindParam(2, $ePass);
+		$sql = "DELETE from user_list WHERE user_id=?";
+		$stmt = $DB->prepare($sql);
+		$stmt->bindParam(1, $data['id']);
 		$stmt->execute();
-		$user_id = $DB->lastInsertId();
-
-		$stmt = $DB->prepare('INSERT INTO user_info (user_id, first_name, last_name, email) VALUES (?,?,?,?)');
-		$stmt->bindParam(1, $user_id);
-		$stmt->bindParam(2, $data['first_name']);
-		$stmt->bindParam(3, $data['last_name']);
-		$stmt->bindParam(4, $data['email']);
-		$stmt->execute();
-
-		$DB->commit();
-		$return = true;
-	}catch (Exception $e) {
-		$DB->rollBack();
-		$_SESSION['ERROR']['message']=$e->getMessage();
-		$return = false;
+		$return['status'] = 'success';
+	} catch (Exception $e) {
+		$return['status'] = 'error';
+		$return['error']['message'] = $e->getMessage();
 	}
+
 	return $return;
 }
-function account_update($data){
-	global $DB;
-	return $return;
-}
-function account_delete($data){
-	 //delete data added
-    global $DB;
 
-    try {
 
-        $DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $DB->beginTransaction();
-
-        $sql = "DELETE from user_list WHERE user_id=?";
-
-        $stmt = $DB->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-
-        $rowChange = $stmt->rowCount();
-        if ($rowChange == 1) {
-
-            $sql = "DELETE from user_info WHERE user_id=?";
-
-            $stmt = $DB->prepare($sql);
-            $stmt->bindParam(1, $id);
-            $stmt->execute();
-
-            $rowChange = $stmt->rowCount();
-            if ($rowChange == 1) {
-                $DB->commit();
-            } else {
-                $DB->rollBack();
-            }
-        } else {
-            $DB->rollBack();
-        }
-
-        $return['status'] = 'success';
-    } catch (Exception $e) {
-
-        $DB->rollBack();
-
-        $return['status'] = 'error';
-        $return['error']['message'] = $e->getMessage();
-        $return = $return;
-    }
-
-    return $return;
-}
-
-	
 
 function account_login($data){
 	global $DB;
 	$sql = 'SELECT * FROM user_info WHERE user_id = (SELECT user_id FROM user_list WHERE username=:username AND password=:password)';
-    $stmt = $DB->prepare($sql);
-    $stmt->bindValue(':username', $data['username']);
-    $stmt->bindValue(':password', encrypt($data['username'], $data['password']));
-    $stmt->execute();
-    $result = $stmt->fetchAll();
-    if(count($result)>0){
-    	$_SESSION['valid']=$result[0];
-    }else{
-    	$result['error'][]='Your username or password are incorrect.';
-    }
-    return $result;
+	$stmt = $DB->prepare($sql);
+	$stmt->bindValue(':username', $data['username']);
+	$stmt->bindValue(':password', encrypt($data['username'], $data['password']));
+	$stmt->execute();
+	$result = $stmt->fetchAll();
+	if(count($result)>0){
+		$_SESSION['valid']=$result[0];
+	}else{
+		$result['error'][]='Your username or password are incorrect.';
+	}
+	return $result;
 }
 
 function encrypt($username, $password){
@@ -144,4 +124,62 @@ function encrypt($username, $password){
 	return $hash;
 }
 
+
+
+
+
+
+
+
+function is_clean_create($form){
+	$error = array();
+//clean & validate form
+	if(strlen($form['username'])<5 || strlen($form['username'])>15){
+		$error['username']='Your username must be between 5 and 15 chars long.';
+	}
+	if($form['password']!=$form['password2']){
+		$error['password2']='Your passwords must match';
+	}
+	if(strlen($form['password'])<5 || strlen($form['password'])>15){
+		$error['password']='Your password must be between 5 and 15 chars long.';
+	}
+	if(strlen($form['first_name'])<2){
+		$error['first_name']='You need a name!';
+	}
+	if(strlen($form['last_name'])<2){
+		$error['last_name']='You need a last name too!';
+	}
+	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
+		$error['email']='Your email is invalid.';
+	}
+	if(count($error)>0){
+		$response['status']='error';
+		$response['error']=$error;
+		return $response;
+	}else{
+		$response['status']='success';
+		return $response;
+	}
+}
+function is_clean_update($form){
+	$error = array();
+//clean & validate form
+	if(strlen($form['first_name'])<2){
+		$error['first_name']='You need a name!';
+	}
+	if(strlen($form['last_name'])<2){
+		$error['last_name']='You need a last name too!';
+	}
+	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
+		$error['email']='Your email is invalid.';
+	}
+	if(count($error)>0){
+		$response['status']='error';
+		$response['error']=$error;
+		return $response;
+	}else{
+		$response['status']='success';
+		return $response;
+	}
+}
 ?>
