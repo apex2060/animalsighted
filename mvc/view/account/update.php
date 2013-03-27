@@ -1,6 +1,9 @@
-<?php $form=$_SESSION['valid']; ?>
 <?php include('mvc/view/partials/head.php'); ?>
 <?php include('mvc/view/partials/header.php'); ?>
+<?php 
+	$form=$_SESSION['valid']; 
+	$_SESSION['deleteToken']=token(mt_rand());
+?>
 	<div class="row-fluid">
 		<div class="span3">
 			<?php include('mvc/view/partials/sidebar.php'); ?>
@@ -11,20 +14,19 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					
-					<form action="?account=signup" method="post" class="form-horizontal">
+					<form action="?account=manage" method="post" class="form-horizontal">
 						<h2>Account Information</h2>
 						<div class="control-group">
 							<label class="control-label" for="password">Password</label>
 							<div class="controls">
-								<input type="password" id="password" name="password" placeholder="Password" required>
+								<input type="password" id="password" name="password" placeholder="Password">
 								<?php drawError('password'); ?>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="password2">Re-Type Password</label>
 							<div class="controls">
-								<input type="password" id="password2" name="password2" placeholder="Password" data-validation-match-match="password" required>
+								<input type="password" id="password2" name="password2" placeholder="Password" data-validation-match-match="password">
 								<?php drawError('password2'); ?>
 							</div>
 						</div>
@@ -56,6 +58,9 @@
 					</form>
 				</div><!--/span-->
 			</div><!--/row-->
+			<div class="alert alert-error">
+				Danger Zone: <a class="btn" href="?account=delete&token=<?php echo $_SESSION['deleteToken']; ?>">Delete Account</a>
+			</div>
 		</div><!--/span-->
 	</div><!--/row-->
 

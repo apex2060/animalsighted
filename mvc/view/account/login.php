@@ -26,6 +26,7 @@
 					</div>
 					<div class="control-group">
 						<div class="controls">
+							<a class="btn" href="?account=signup">Signup</a>
 							<input type="submit" class="btn" id="submit" name="submit" value="Login">
 						</div>
 					</div>

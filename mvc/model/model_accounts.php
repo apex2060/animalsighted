@@ -36,6 +36,7 @@ function account_create($data){
 			$DB->rollBack();
 			$return['status'] = 'error';
 			$return['error']['message'] = $e->getMessage();
+			setError('db', $return['error']['message']);
 			$return = $return;
 		}
 		return $return;
@@ -53,7 +54,7 @@ function account_update($data){
 			$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$DB->beginTransaction();
 
-			if(count($data['password'])>=5){
+			if(strlen($data['password'])>=5){
 				$sql = "UPDATE user_list SET password=? WHERE user_id=?";
 				$stmt = $DB->prepare($sql);
 				$stmt->execute(array($ePass, user('user_id')));
@@ -64,36 +65,45 @@ function account_update($data){
 			$stmt->execute(array($data['first_name'], $data['last_name'], $data['email'], user('user_id')));
 
 			$DB->commit();
+			$_SESSION['valid'] = array_merge($_SESSION['valid'], $data);
 			$return['status'] = 'success';
 		}catch (Exception $e) {
 			$DB->rollBack();
 			$return['status'] = 'error';
 			$return['error']['message'] = $e->getMessage();
+			setError('db', $return['error']['message']);
 			$return = $return;
 		}
 		return $return;
 	}
 }
 
-function account_delete($data){
+function account_delete($user_id, $token){
 //delete data added
-	global $DB;
+	if($_SESSION['deleteToken']==$token){
+		global $DB;
 
-	try {
-		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$DB->beginTransaction();
+		try {
+			$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$DB->beginTransaction();
 
-		$sql = "DELETE from user_list WHERE user_id=?";
-		$stmt = $DB->prepare($sql);
-		$stmt->bindParam(1, $data['id']);
-		$stmt->execute();
-		$return['status'] = 'success';
-	} catch (Exception $e) {
-		$return['status'] = 'error';
-		$return['error']['message'] = $e->getMessage();
+			$sql = "DELETE from user_list WHERE user_id=?";
+			$stmt = $DB->prepare($sql);
+			$stmt->bindParam(1, $user_id);
+			$stmt->execute();
+			$response['status'] = 'success';
+			setError('message', 'Account deleted.');
+		} catch (Exception $e) {
+			$response['status'] = 'error';
+			$response['error']['message'] = $e->getMessage();
+			setError('db', $response['error']['message']);
+		}
+	}else{
+		$response['status']='error';
+		setError('message', 'Account could not be deleted at this time.');
 	}
 
-	return $return;
+	return $response;
 }
 
 
@@ -108,8 +118,10 @@ function account_login($data){
 	$result = $stmt->fetchAll();
 	if(count($result)>0){
 		$_SESSION['valid']=$result[0];
+		$result['status']='success';
 	}else{
-		$result['error'][]='Your username or password are incorrect.';
+		$result['status']='error';
+		setError('message', 'Your username or password are incorrect.');
 	}
 	return $result;
 }
@@ -132,29 +144,34 @@ function encrypt($username, $password){
 
 
 function is_clean_create($form){
-	$error = array();
+	$error=0;
 //clean & validate form
 	if(strlen($form['username'])<5 || strlen($form['username'])>15){
-		$error['username']='Your username must be between 5 and 15 chars long.';
+		setError('username', 'Your username must be between 5 and 15 chars long.');
+		$error++;
 	}
 	if($form['password']!=$form['password2']){
-		$error['password2']='Your passwords must match';
+		setError('password2', 'Your passwords must match');
+		$error++;
 	}
 	if(strlen($form['password'])<5 || strlen($form['password'])>15){
-		$error['password']='Your password must be between 5 and 15 chars long.';
+		setError('password', 'Your password must be between 5 and 15 chars long.');
+		$error++;
 	}
 	if(strlen($form['first_name'])<2){
-		$error['first_name']='You need a name!';
+		setError('first_name', 'You need a name!');
+		$error++;
 	}
 	if(strlen($form['last_name'])<2){
-		$error['last_name']='You need a last name too!';
+		setError('last_name', 'You need a last name too!');
+		$error++;
 	}
 	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
-		$error['email']='Your email is invalid.';
+		setError('email', 'Your email is invalid.');
+		$error++;
 	}
-	if(count($error)>0){
+	if($error>0){
 		$response['status']='error';
-		$response['error']=$error;
 		return $response;
 	}else{
 		$response['status']='success';
@@ -162,20 +179,22 @@ function is_clean_create($form){
 	}
 }
 function is_clean_update($form){
-	$error = array();
+	$error=0;
 //clean & validate form
 	if(strlen($form['first_name'])<2){
-		$error['first_name']='You need a name!';
+		setError('first_name', 'You need a name!');
+		$error++;
 	}
 	if(strlen($form['last_name'])<2){
-		$error['last_name']='You need a last name too!';
+		setError('last_name', 'You need a last name too!');
+		$error++;
 	}
 	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
-		$error['email']='Your email is invalid.';
+		setError('email', 'Your email is invalid.');
+		$error++;
 	}
-	if(count($error)>0){
+	if($error>0){
 		$response['status']='error';
-		$response['error']=$error;
 		return $response;
 	}else{
 		$response['status']='success';
