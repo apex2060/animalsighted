@@ -26,7 +26,6 @@ background-color: #BCAE94;
 
 .table-striped tbody > tr:nth-child(even) > td, .table-striped tbody > tr:nth-child(even) > th {
   color: black;
-background-color: #BCAE94;
 }
 
 thead {
