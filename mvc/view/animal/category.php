@@ -1,5 +1,6 @@
 <?php include('mvc/view/partials/head.php'); ?>
 <?php include('mvc/view/partials/header.php'); ?>
+<?php $category_details = category_details($url['category_id']);?>
 		<div class="row-fluid">
 			<div class="span3">
 				<?php include('mvc/view/partials/sidebar.php'); ?>
@@ -7,14 +8,10 @@
 			</div><!--/span-->
 			<div class="span9">
 				<div class="hero-unit">
-					<h1>Animal Sighted!</h1>
-					<p>Find your favorite animals right here in yellowstone!  This is more than just an interactive guidebook, we make it possible for you to share your experiences with others.</p>
-					<?php if(!user('user_id')) { ?>
-						<p><a href="?account=signup" class="btn btn-primary btn-large">Signup Now! &raquo;</a></p>
-					<?php } ?>
+					<h1><?php echo $category_details['category']; ?></h1>
 				</div>
 				<?php 
-					$animals = animal_list();
+					$animals = animal_list(false, $url['category_id']);
 					$ct=count($animals);
 
 					echo '<div class="row-fluid">'."\n";
@@ -25,9 +22,9 @@
 						echo 	'<div class="span4">'."\n";
 						echo	'	<h2 class="text-center"><a href="?animal=details&animal_id='.$animals[$i]['animal_id'].'">'.$animals[$i]['name'].'</a></h2>'."\n";
 						if(strlen($animals[$i]['src'])>0)
-						echo	'	<a href="?animal=details&animal_id='.$animals[$i]['animal_id'].'"><img class="img-polaroid" src="'.$animals[$i]['src'].'"></a><br>'."\n";
+						echo	'	<img class="img-polaroid" src="'.$animals[$i]['src'].'"><br>'."\n";
 						else if($animals[$i]['lat'])
-						echo	'	<a href="?animal=details&animal_id='.$animals[$i]['animal_id'].'"><img class="img-polaroid" src="'.map($animals[$i]['lat'], $animals[$i]['lng']).'"></a><br>'."\n";
+						echo	'	<img class="img-polaroid" src="'.map($animals[$i]['lat'], $animals[$i]['lng']).'"><br>'."\n";
 						echo	'	<p>'.$animals[$i]['about'].'</p>'."\n";
 						echo	'</div><!--/span-->'."\n";
 					}
