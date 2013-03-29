@@ -19,6 +19,19 @@ hr {
   border-bottom: 1px solid #9D794F;
 }
 
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+  color: black;
+background-color: #BCAE94;
+}
+
+.table-striped tbody > tr:nth-child(even) > td, .table-striped tbody > tr:nth-child(even) > th {
+  color: black;
+background-color: #BCAE94;
+}
+
+thead {
+    font-weight: bold;
+}
 
 .well {
   background-color: #CDBEA1;
