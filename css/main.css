@@ -80,6 +80,14 @@ hr {
     border-color: black;
 }
 
+.nav-list > .active > a, .nav-list > .active > a:hover, .nav-list > .active > a:focus {
+background-color: #9d794f;
+}
+
+.nav-header {
+    color: #000;
+}
+
 /*   =====   Footer   =====   */
 
 footer {
