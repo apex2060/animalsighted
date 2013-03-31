@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="animal_id">name</label>
+						<label class="control-label" for="animal_id">Name</label>
 						<div class="controls">
 							<select id="animal_id" name="animal_id">
 								<option value="">Select An Animal</option>
@@ -43,8 +43,15 @@
 							<?php drawError('name'); ?>
 						</div>
 					</div>
+<!-- 					<div class="control-group">
+						<label class="control-label" for="img">Add Picture</label>
+						<div class="controls">
+							<input type="file" id="img" name="img">
+							<?php drawError('img'); ?>
+						</div>
+					</div> -->
 					<div class="control-group">
-						<label class="control-label" for="note">note</label>
+						<label class="control-label" for="note">Note</label>
 						<div class="controls">
 							<textarea id="note" name="note"><?php echo $form['note']; ?></textarea>
 							<?php drawError('note'); ?>

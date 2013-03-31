@@ -26,7 +26,7 @@ function animal_sighting($data){
 		setError('geo', 'We need to get your location before you can submit a sighting.');
 	}
 	if(!filter_var($data['category_id'], 	FILTER_VALIDATE_INT)){
-		if($data['category']>2 &&  $data['category']<25){
+		if($data['category']<2 ||  $data['category']>25){
 			$error=true;
 			setError('animal_id', 'You need to select a category that exists - or enter a new one.');
 		}else{
@@ -34,7 +34,7 @@ function animal_sighting($data){
 		}
 	}
 	if(!filter_var($data['animal_id'], 		FILTER_VALIDATE_INT)){
-		if($data['name']>2 &&  $data['name']<25){
+		if($data['name']<2 ||  $data['name']>25){
 			$error=true;
 			setError('animal_id', 'You need to select an animal that exists - or enter a new one.');
 		}else{
@@ -43,7 +43,8 @@ function animal_sighting($data){
 	}
 
 	if($error){
-		return $response;
+		$return['status'] = 'error';
+		$return['message'] = 'There were errors';
 	}else{
 		global $DB;
 		$user_id = user('user_id');
@@ -84,8 +85,8 @@ function animal_sighting($data){
 			setError('db', $return['error']['message']);
 			$return = $return;
 		}
-		return $return;
 	}
+	return $return;
 }
 
 function animal_delete($user_id, $token){

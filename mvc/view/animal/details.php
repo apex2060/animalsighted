@@ -8,7 +8,14 @@
 	</div><!--/span-->
 	<div class="span9">
 		<div class="hero-unit">
-			<h1><? echo $animal_details['name']; ?></h1>
+			<?php if(user('auth')==1){ ?>
+				<div id="name_div">
+					<input id="name_input" placeholder="animal name" value="<? echo $animal_details['name']; ?>">
+					<button id="name_update" class="btn">Save</button>
+				</div>
+			<?php } else { ?>
+				<h1><? echo $animal_details['name']; ?></h1>
+			<?php } ?>
 			<h3><? echo $animal_details['category']; ?></h3>
 			<div id="map_canvas" class="map well" style="height:300px;"></div>
 		</div>
@@ -67,6 +74,12 @@ $('#img_input').on('change', function(){
 	$('#animal_pic').attr('src', src);
 	$.post( 'mvc/model/api/animal/update_img.php', {'animal_id': animal_id, 'src': src}, function(data) { 
 		iAlert('img_div', data['status'], data['message']);
+	}, 'JSON');
+});
+$('#name_update').click(function(){
+	var name = $('#name_input').val();
+	$.post( 'mvc/model/api/animal/update_name.php', {'animal_id': animal_id, 'name': name}, function(data) { 
+		iAlert('name_div', data['status'], data['message']);
 	}, 'JSON');
 });
 </script>

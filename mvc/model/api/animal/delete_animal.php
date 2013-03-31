@@ -6,19 +6,15 @@
 
 	if(user('auth')==1){
 		$data['animal_id'] 	= filter_var($_POST['animal_id'], FILTER_SANITIZE_NUMBER_INT);
-		$data['src'] 		= filter_var($_POST['src'], FILTER_SANITIZE_SPECIAL_CHARS); 
+		$data['about'] 		= filter_var($_POST['about'], FILTER_SANITIZE_SPECIAL_CHARS); 
 		if(is_numeric($data['animal_id'])){
-			$sql = "UPDATE animal_info SET src=? WHERE animal_id=?";
+			$sql = "DELETE from animal_list WHERE animal_id=?";
 			$stmt = $DB->prepare($sql);
-			$stmt->execute(array($data['src'], $data['animal_id']));
-			if($stmt->rowCount() == 0){
-				$insert = 'INSERT INTO animal_info (animal_id, src) VALUES (?,?)';
-				$stmt = $DB->prepare($insert);
-				$stmt->execute(array($data['animal_id'], $data['src']));
-			}
-			
+			$stmt->bindParam(1, $data['animal_id']);
+			$stmt->execute();
+
 			$result['status']='success';
-			$result['message']='Picture updated successfully!';
+			$result['message']='Animal Deleted!';
 		}else{
 			$result['status']='error';
 			$result['message']='Sorry, there was an error finding this animal.';

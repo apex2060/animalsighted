@@ -12,5 +12,7 @@ if($_GET['animal']=='add'){
 	include('mvc/view/animal/list.php');
 }else if($_GET['animal']=='category'){
 	include('mvc/view/animal/category.php');
+}else if($_GET['animal']=='map'){
+	include('mvc/view/animal/map.php');
 }
 ?>
