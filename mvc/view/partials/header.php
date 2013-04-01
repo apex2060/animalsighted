@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="/">Animal Sighted</a>
+			<a class="brand" href="/"></a>
 			<div class="nav-collapse collapse">
 				<p class="navbar-text pull-right">
 					<?php if($_SESSION['valid']){ ?>

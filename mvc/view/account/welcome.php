@@ -6,8 +6,10 @@
 			</div><!--/span-->
 			<div class="span9">
 				<div class="hero-unit">
-					<h1>Welcome <?php echo $form['first_name'].' '.$form['last_name']; ?>!!!</h1>
+					<h1>Welcome <?php echo user('first_name').' '.user('last_name'); ?>!!!</h1>
 					<p>We are glad you are here!</p>
+					<p>If you are looking at an animal right now, <a href="?animal=add" class="btn btn-mini" title="Add a shighting">click here</a> to tell us now.</p>
+					<p>If you want to manage your settings <a href="?account=manage" class="btn btn-mini" title="Manage settings">Click Here</a></p>
 				</div>
 			</div><!--/span-->
 		</div><!--/row-->

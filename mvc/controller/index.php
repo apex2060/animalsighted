@@ -18,5 +18,5 @@ if($_GET['account']){
 	require_once('mvc/model/model_animals.php');
 	include('mvc/view/site/main.php');
 }
-echo JSON_encode($_SESSION);
+// echo JSON_encode($_SESSION);
 ?>

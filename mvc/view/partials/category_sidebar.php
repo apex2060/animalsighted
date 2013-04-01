@@ -5,7 +5,7 @@
 			$categories = category_list();
 			$ct=count($categories);
 			for($i=0; $i<$ct; $i++){
-				echo '<li><a href="?animal=category&category_id='.$categories[$i]['category_id'].'">'.$categories[$i]['category'].'</a></li>'."\n";
+				echo '<li class="'.active('category_id='.$categories[$i]['category_id']).'"><a href="?animal=category&category_id='.$categories[$i]['category_id'].'">'.$categories[$i]['category'].'</a></li>'."\n";
 			}
 		?>
 	</ul>

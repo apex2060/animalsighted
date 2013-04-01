@@ -8,7 +8,7 @@
 		<div class="hero-unit">
 			<h1>Report a sighting!</h1>
 			<br>
-			<div id="map" style="text-align:center;"></div>
+			<!-- <div id="map" style="text-align:center;"></div> -->
 		</div>
 		<div class="row-fluid">
 			<div class="span12">
@@ -74,8 +74,8 @@
 		console.log(lat, lng);
 		$('#lat').val(lat);
 		$('#lng').val(lng);
-		var src='http://maps.googleapis.com/maps/api/staticmap?center='+lat+','+lng+'&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C'+lat+','+lng+'&sensor=false';
-		$('#map').html('<img src="'+src+'">');
+		// var src='http://maps.googleapis.com/maps/api/staticmap?center='+lat+','+lng+'&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C'+lat+','+lng+'&sensor=false';
+		// $('#map').html('<img src="'+src+'">');
 	});
 
 	// get list of categories
