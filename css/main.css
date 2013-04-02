@@ -186,7 +186,7 @@ hr {
 .btn-primary {
   background-color: hsl(30, 47%, 12%) !important;
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a4703b", endColorstr="#2c1e10");
+/*  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a4703b", endColorstr="#2c1e10"); validator does not like this*/
   background-image: -khtml-gradient(linear, left top, left bottom, from(#a4703b), to(#2c1e10));
   background-image: -moz-linear-gradient(top, #a4703b, #2c1e10);
   background-image: -ms-linear-gradient(top, #a4703b, #2c1e10);
@@ -236,7 +236,7 @@ background-color: #E0D9AF;
 } }
 
 @media (max-width: 979px) {.navbar-inverse .nav-collapse .nav > li > a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:hover {
-color: black;  
+color: white;  
 background-color: #E0D9AF;
 } }
 
