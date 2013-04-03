@@ -10,7 +10,7 @@
 		</div>
 		<div class="row-fluid">
 			<div class="span12">
-				<h2>Account Information</h2>
+				<?php drawError('a_delete'); ?>
 				<form class="form-horizontal" method="post" action="?account=login">
 					<div class="control-group">
 						<label class="control-label" for="username">Username</label>

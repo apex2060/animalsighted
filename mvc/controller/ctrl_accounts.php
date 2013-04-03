@@ -11,8 +11,11 @@ if($_GET['account']=='signup'){
 		$result=account_update($form);
 	include('mvc/view/account/update.php');
 }else if($_GET['account']=='delete'){
-	account_delete(user('user_id'), $_GET['token']);
-	include('mvc/view/account/login.php');
+	$result=account_delete($_GET['token']);
+	if($result['status']=='success')
+		include('mvc/view/account/login.php');
+	else
+		include('mvc/view/account/update.php');
 }else if($_GET['account']=='login'){
 	if($_POST['submit']){
 		$result=account_login($form);

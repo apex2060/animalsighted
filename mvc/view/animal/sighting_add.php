@@ -88,6 +88,7 @@
 	$('#category_id').on('change', function(){
 		var categoryId = $(this).val();
 		$.getJSON('mvc/model/json_animals.php?categoryId='+categoryId, function(data) {
+			$('#animal_id').html('<option value="">Select An Animal</option>');
 			for(var i=0; i<data.length; i++){
 				$('#animal_id').append('<option value="'+data[i]['animal_id']+'">'+data[i]['name']+'</option>');
 			}

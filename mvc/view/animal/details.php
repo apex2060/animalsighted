@@ -11,7 +11,7 @@
 			<?php if(user('auth')==1){ ?>
 				<div id="name_div">
 					<input id="name_input" placeholder="animal name" value="<? echo $animal_details['name']; ?>">
-					<button id="name_update" class="btn">Save</button>
+					<button id="name_update" class="btn">Update</button>
 				</div>
 			<?php } else { ?>
 				<h1><? echo $animal_details['name']; ?></h1>
@@ -35,6 +35,7 @@
 					<hr>
 					<input type="text" id="img_input" class="span12" placeholder="Image URL" value="<?php echo $animal_details['src']; ?>">
 					<button id="img_update" class="btn pull-right">Update</button>
+					<a target="_new" href="<?php echo search($animal_details['name']); ?>" class="btn pull-right">Search</a>
 				<?php } else { ?>
 					<img id="animal_pic" class="img-polaroid" src="<?php echo $animal_details['src']; ?>">
 				<?php } ?>

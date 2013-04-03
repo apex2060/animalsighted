@@ -31,12 +31,13 @@ function account_create($data){
 			$stmt->execute();
 
 			$DB->commit();
+			account_login($data);
 			$return['status'] = 'success';
 		}catch (Exception $e) {
 			$DB->rollBack();
 			$return['status'] = 'error';
 			$return['error']['message'] = $e->getMessage();
-			setError('db', $return['error']['message']);
+			setError('site', $return['error']['message']);
 			$return = $return;
 		}
 		return $return;
@@ -67,40 +68,39 @@ function account_update($data){
 			$DB->commit();
 			$_SESSION['valid'] = array_merge($_SESSION['valid'], $data);
 			$return['status'] = 'success';
+			$return['message'] = 'Account Updated';
 		}catch (Exception $e) {
 			$DB->rollBack();
 			$return['status'] = 'error';
 			$return['error']['message'] = $e->getMessage();
-			setError('db', $return['error']['message']);
+			setError('site', $return['error']['message']);
 			$return = $return;
 		}
 		return $return;
 	}
 }
 
-function account_delete($user_id, $token){
-//delete data added
-	if($_SESSION['deleteToken']==$token){
+function account_delete($token){
+	$user_id=user('user_id');
+	if($_SESSION['deleteToken']==$token && $user_id){
 		global $DB;
 
 		try {
-			$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$DB->beginTransaction();
-
 			$sql = "DELETE from user_list WHERE user_id=?";
 			$stmt = $DB->prepare($sql);
 			$stmt->bindParam(1, $user_id);
 			$stmt->execute();
+			$_SESSION['valid']='';
 			$response['status'] = 'success';
-			setError('message', 'Account deleted.');
+			setError('a_delete', 'Account deleted.');
 		} catch (Exception $e) {
 			$response['status'] = 'error';
 			$response['error']['message'] = $e->getMessage();
-			setError('db', $response['error']['message']);
+			setError('a_delete', $response['error']['message']);
 		}
 	}else{
 		$response['status']='error';
-		setError('message', 'Account could not be deleted at this time.');
+		setError('a_delete', 'Account could not be deleted at this time.');
 	}
 
 	return $response;
@@ -118,6 +118,7 @@ function account_login($data){
 	$result = $stmt->fetchAll();
 	if(count($result)>0){
 		$_SESSION['valid']=$result[0];
+		$_SESSION['valid']['username']=$data['username'];
 		$result['status']='success';
 	}else{
 		$result['status']='error';
@@ -159,11 +160,11 @@ function is_clean_create($form){
 		$error++;
 	}
 	if(strlen($form['first_name'])<2){
-		setError('first_name', 'You need a name!');
+		setError('first_name', 'Your name is too short!');
 		$error++;
 	}
 	if(strlen($form['last_name'])<2){
-		setError('last_name', 'You need a last name too!');
+		setError('last_name', 'Your last name is too short!');
 		$error++;
 	}
 	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
@@ -181,12 +182,21 @@ function is_clean_create($form){
 function is_clean_update($form){
 	$error=0;
 //clean & validate form
+	if(strlen($form['password'])>0){
+		if(strlen($form['password'])<5){
+			setError('password', 'Your password is too short!');
+			$error++;
+		}else if($form['password']!=$form['password2']){
+			setError('password', 'Your passwords do not match!');
+			$error++;
+		}
+	}
 	if(strlen($form['first_name'])<2){
-		setError('first_name', 'You need a name!');
+		setError('first_name', 'Your name is too short!');
 		$error++;
 	}
 	if(strlen($form['last_name'])<2){
-		setError('last_name', 'You need a last name too!');
+		setError('last_name', 'Your last name is too short!');
 		$error++;
 	}
 	if(!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){

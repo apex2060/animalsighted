@@ -12,6 +12,7 @@
 				<p class="navbar-text pull-right">
 					<?php if($_SESSION['valid']){ ?>
 						<a href="?account=manage" class="navbar-link"><?php echo user('first_name'); ?></a>
+						| <a href="?account=manage" class="navbar-link">Manage Account</a>
 						| <a href="?account=logout" class="navbar-link">Logout</a>
 					<?php }else{ ?>
 						<a href="?account=login" class="navbar-link">Login</a>
@@ -26,5 +27,4 @@
 		</div>
 	</div>
 </div>
-<?php drawError('site'); ?>
 <div class="container-fluid">

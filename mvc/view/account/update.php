@@ -14,6 +14,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
+					<?php if($result['message']){ drawMsg($result['status'], $result['message']); } ?>
 					<form action="?account=manage" method="post" class="form-horizontal">
 						<h2>Account Information</h2>
 						<div class="control-group">
@@ -60,6 +61,7 @@
 			</div><!--/row-->
 			<div class="alert alert-error">
 				Danger Zone: <a class="btn" href="?account=delete&token=<?php echo $_SESSION['deleteToken']; ?>">Delete Account</a>
+				<?php drawError('a_delete'); ?>
 			</div>
 		</div><!--/span-->
 	</div><!--/row-->

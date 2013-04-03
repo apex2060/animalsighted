@@ -7,13 +7,13 @@ Purpose:		To manage all animal models.
 				*******************************************************************************/
 function animal_sighting($data){
 	//Clean Data
-	$data['lat'] 		= filter_var($data['lat'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-	$data['lng'] 		= filter_var($data['lng'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+	$data['lat'] 			= filter_var($data['lat'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+	$data['lng'] 			= filter_var($data['lng'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$data['category_id'] 	= filter_var($data['category_id'], FILTER_SANITIZE_NUMBER_INT);
 	$data['category'] 		= filter_var($data['category'], FILTER_SANITIZE_STRING);
 	$data['animal_id'] 		= filter_var($data['animal_id'], FILTER_SANITIZE_NUMBER_INT);
-	$data['name'] 		= filter_var($data['name'], FILTER_SANITIZE_STRING);
-	$data['note'] 		= filter_var($data['note'], FILTER_SANITIZE_SPECIAL_CHARS); 
+	$data['name'] 			= filter_var($data['name'], FILTER_SANITIZE_STRING);
+	$data['note'] 			= filter_var($data['note'], FILTER_SANITIZE_SPECIAL_CHARS); 
 
 	//Check for errors
 	$error=false;
@@ -26,15 +26,15 @@ function animal_sighting($data){
 		setError('geo', 'We need to get your location before you can submit a sighting.');
 	}
 	if(!filter_var($data['category_id'], 	FILTER_VALIDATE_INT)){
-		if($data['category']<2 ||  $data['category']>25){
+		if(strlen($data['category'])<2 ||  strlen($data['category'])>25){
 			$error=true;
-			setError('animal_id', 'You need to select a category that exists - or enter a new one.');
+			setError('category_id', 'You need to select a category that exists - or enter a new one.');
 		}else{
 			$setCategoryFromString=true;
 		}
 	}
 	if(!filter_var($data['animal_id'], 		FILTER_VALIDATE_INT)){
-		if($data['name']<2 ||  $data['name']>25){
+		if(strlen($data['name'])<2 ||  strlen($data['name'])>25){
 			$error=true;
 			setError('animal_id', 'You need to select an animal that exists - or enter a new one.');
 		}else{

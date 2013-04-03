@@ -40,11 +40,15 @@ if(user('auth')==1){
 </div><!--/row-->
 <script>
 $('.delete').click(function(){
-	var animal_id = $(this).closest('tr').data('animal_id');
+	var row = $(this).closest('tr');
+	var animal_id = $(row).data('animal_id');
 	var animal = $(this).closest('tr').children('.name').text();
 	if(confirm('Are you sure you want to delete the: '+animal)){
 		$.post( 'mvc/model/api/animal/delete_animal.php', {'animal_id': animal_id}, function(data) { 
 			iAlert('notifications', data['status'], data['message']);
+			if(data['status']=='success'){
+				$(row).remove();
+			}
 		}, 'JSON');
 	}
 });

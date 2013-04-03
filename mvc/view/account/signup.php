@@ -18,6 +18,7 @@
 							<div class="controls">
 								<input type="text" id="username" name="username" placeholder="Username" value="<?php echo $form['username']; ?>" required>
 								<?php drawError('username'); ?>
+								<?php drawError('site'); ?>
 							</div>
 						</div>
 						<div class="control-group">

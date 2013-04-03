@@ -23,7 +23,7 @@
 							echo '</div><div class="row-fluid">'."\n";
 						}
 						echo 	'<div class="span4">'."\n";
-						echo	'	<h2 class="text-center"><a href="?animal=details&animal_id='.$animals[$i]['animal_id'].'">'.$animals[$i]['name'].'</a></h2>'."\n";
+						echo	'	<h2 class="text-center"><a href="?animal=details&amp;animal_id='.$animals[$i]['animal_id'].'">'.$animals[$i]['name'].'</a></h2>'."\n";
 						if(strlen($animals[$i]['src'])>0)
 						echo	'	<a href="?animal=details&animal_id='.$animals[$i]['animal_id'].'"><img class="img-polaroid" alt="'.$animals[$i]['name'].'" src="'.$animals[$i]['src'].'"></a><br>'."\n";
 						else if($animals[$i]['lat'])
